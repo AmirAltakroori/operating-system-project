@@ -5,7 +5,7 @@ class FCFS {
 private:
 	int cs;
 	deque < Process > processes;
-	queue < Shedule > sheduler;
+	deque < Shedule > sheduler;
 	queue < Process > watingQueue;
 
 	void runAlgorithm() {
@@ -15,7 +15,7 @@ private:
 
 		Process inProcess = getEmpetyProcess();
 
-		while ( !processes.empty() && !watingQueue.empty() ) {
+		while ( !processes.empty() || !watingQueue.empty() || inProcessing (inProcess) ) {
 
 			updateWatingQueue(time);
 
@@ -31,7 +31,8 @@ private:
 					/** there was a real process needs switching */
 					if ( !sheduler.empty()) {
 						Shedule contextSwitch = performContextSwitchShedule (time);		//! time will be updated since it is called by reference
-						sheduler.push(contextSwitch);
+						sheduler.push_back(contextSwitch);
+
 					}
 
 				} else {
@@ -55,6 +56,11 @@ private:
 
 	}
 
+	bool inProcessing (Process inProcess) {
+		return inProcess.id >= 0 && inProcess.cpuBurst > 0;
+	}
+
+
 	void startProcessingSheduling( Shedule& shedule, Process& inProcess, int time ) {
 		shedule.arrivalTime = inProcess.arrivalTime;
 		shedule.id = inProcess.id;
@@ -64,7 +70,10 @@ private:
 
 	void finishProcessingSheduling ( Shedule& shedule, Process& inProcess, int time ) {
 		shedule.endExc = time;
-		sheduler.push(shedule);
+		if (!sheduler.empty() && shedule.id == sheduler.back().id)
+			sheduler.back().endExc = shedule.endExc;
+		else
+			sheduler.push_back(shedule);
 		restSehedule(shedule);			//! reset value of shedule
 		inProcess = getEmpetyProcess();
 	}
@@ -96,6 +105,7 @@ private:
 		emptyProcess.id = -2;
 		emptyProcess.cpuBurst = 1;
 		emptyProcess.processSize = -1;
+		return emptyProcess;
 	}
 
 
@@ -112,15 +122,20 @@ private:
 
 
 public:
-	FCFS (int cs, deque <Process> processes) {
+	FCFS (deque <Process> processes, int cs) {
 
-		sort (processes.begin(), processes.end(), comp);
+		//sort (processes.begin(), processes.end(), comp);
 
 		this -> processes = processes;
 		this -> cs = cs;
 
 		runAlgorithm();
 	}
+
+	deque < Shedule > getSheduler() {
+		return sheduler;
+	}
+
 
 
 

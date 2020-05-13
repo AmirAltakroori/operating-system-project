@@ -1,7 +1,9 @@
+#include <algorithm>
 #include <string>
 #include <deque>
 #include <fstream>
 #include <queue>
+
 
 
 #include <Process.h>
@@ -25,7 +27,9 @@ int main () {
 	int contextSwitch = reader -> getContextSwitch();
 	deque < Process > processes = reader -> getAllProcesses();
 
+	FCFS* fcfs = new FCFS (processes, contextSwitch);
 
+	deque <Shedule> shedule = fcfs -> getSheduler();
 	
 	return 0;
 }
