@@ -1,2 +1,2 @@
 # operating-system-project
-Project that simulates the CPU scheduler and Pageing   
+Project that simulates the CPU scheduler and Paging memory manege 
