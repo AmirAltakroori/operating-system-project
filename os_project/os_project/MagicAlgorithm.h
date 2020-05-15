@@ -167,7 +167,7 @@ private:
 
 		/** initailze important variables */
 		int time = 0;		
-		Shedule shedule = {-1, -1, -1, -1};
+		Shedule shedule = {-3, -3, -3, -3};
 		Process inProcess = getEmpetyProcess();
 		int roundQ = roundRobinQ;
 
@@ -184,6 +184,7 @@ private:
 
 					/** getting the top process on the waiting queue */
 					inProcess = watingQueue.top();
+					roundQ = roundRobinQ;
 					watingQueue.pop();
 
 					/** there was a real process needs switching */
@@ -269,7 +270,7 @@ private:
 		shedule.endExc = time;		
 
 		/** cheack if the last shedule in sheduler is the same of current process */
-		if (!sheduler.empty() && shedule.id == sheduler.back().id)
+		if (!sheduler.empty() && shedule.id == sheduler.back().id && shedule.startExc == sheduler.back().endExc && shedule.id < 0)
 			/** modify fishing time */
 			sheduler.back().endExc = shedule.endExc;
 		else
@@ -277,13 +278,15 @@ private:
 			sheduler.push_back(shedule);
 
 		/** cheack if the current process needs more processing */
-		if (inProcess.cpuBurst > 0) {
+		if (inProcess.cpuBurst > 0 && inProcess.id >= 0) {
+			inProcess.arrivalTime = time;
 			watingQueue.push(inProcess);
 		} else {
 			inProcess = getEmpetyProcess();
 		}
 
 		restSehedule(shedule);		//! reset value of shedule to prepare it for new process
+		inProcess = getEmpetyProcess();
 		roundQ = roundRobinQ;		//! restart the round of processing
 	}
 	
@@ -345,10 +348,10 @@ private:
 	@return Shedule: empty shedule with id = -1
 	*/
 	void restSehedule (Shedule& shedule) {
-		shedule.id = -1;
-		shedule.startExc = -1;
-		shedule.endExc = -1;
-		shedule.arrivalTime = -1;
+		shedule.id = -3;
+		shedule.startExc = -3;
+		shedule.endExc = -3;
+		shedule.arrivalTime = -3;
 	}
 
 	//! Helper function

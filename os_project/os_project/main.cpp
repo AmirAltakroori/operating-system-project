@@ -17,6 +17,7 @@
 using namespace std;
 
 string printFormat (deque <Shedule> sheduler) {
+
 	string output = "";
 	for (auto shedule: sheduler) { // same as for (int i = 0; i < sheduler.size(); i++)
 		if (shedule.id >= 0) {
@@ -30,8 +31,6 @@ string printFormat (deque <Shedule> sheduler) {
 			output += "context switch:\n";
 		else 
 			output += "empty\n";
-
-
 	}
 
 	return output + "\n\n";
@@ -40,7 +39,7 @@ string printFormat (deque <Shedule> sheduler) {
 
 int main () {
 
-	Reader* reader = new Reader("test1.txt");
+	Reader* reader = new Reader("test2.txt");
 
 	int memorySize = reader -> getMemorySize();
 	int pageSize = reader -> getPageSize();
