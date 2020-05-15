@@ -29,7 +29,7 @@
     <ClInclude Include="Shedule.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="FCFS.h">
+    <ClInclude Include="MagicAlgorithm.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

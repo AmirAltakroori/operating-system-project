@@ -73,7 +73,7 @@ public :
 	//! A constructor
 	/*!
 	a parametrized constructor 
-	@param path as a file path to retreve the data
+	@param path (string) as a file path to retreve the data
 	*/
 	Reader (string path) {
 		filePath = "input_test/" + path;
