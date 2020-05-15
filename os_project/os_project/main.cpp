@@ -2,6 +2,8 @@
 #include <deque>
 #include <fstream>
 #include <queue>
+#include <set>
+#include <vector>
 
 #include <iostream>
 
@@ -12,6 +14,7 @@
 
 #include <MagicAlgorithm.h>
 #include <ProcessReader.h>
+#include <MemoryManagor.h>
 
 
 using namespace std;
@@ -39,13 +42,13 @@ string printFormat (deque <Shedule> sheduler) {
 
 int main () {
 
-	Reader* reader = new Reader("test2.txt");
+	Reader* reader = new Reader("test3.txt");
 
 	int memorySize = reader -> getMemorySize();
 	int pageSize = reader -> getPageSize();
 	int roundRobinQ = reader -> getRoundRobinQ();
 	int contextSwitch = reader -> getContextSwitch();
-	deque < Process > processes = reader -> getAllProcesses();
+	deque < Process > processes = reader -> getAllProcessesSorted();
 
 	deque <Shedule> sheduler;
 
@@ -56,15 +59,11 @@ int main () {
 	sheduler = magic2 -> getSheduler();
 	cout << printFormat (sheduler);
 
-
 	MagicAlgorithm* magic1 = new MagicAlgorithm (processes, contextSwitch);
 	magic1 -> runSJF();
 	sheduler = magic1 -> getSheduler();
 	cout << "SJF" << endl;
 	cout << printFormat (sheduler);
-
-
-
 
 	MagicAlgorithm* magic = new MagicAlgorithm (processes, contextSwitch);
 

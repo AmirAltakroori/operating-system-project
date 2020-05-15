@@ -68,6 +68,18 @@ private :
 
 	}
 
+	//! Helper function
+	/*!
+	private returned function that helps sort functions
+	to store data in increasing order based on arrival time
+	@param a as an first process
+	@param b as an second process
+	@return bool: it returns true when the data saty correctly
+	*/
+	static bool compInArrvial (Process a, Process b) {
+		return a.arrivalTime < b.arrivalTime;
+	}
+
 public :
 
 	//! A constructor
@@ -125,4 +137,15 @@ public :
 		return processes;
 	}
 
+	//! Getter function
+	/*!
+	public function that give the all processes data member for the caller
+	sorted based on arrival time
+	@return deque < Process >: all processes
+	*/
+	deque < Process > getAllProcessesSorted ()  {
+		deque < Process > sortedProcesses = processes;
+		sort (sortedProcesses.begin(), sortedProcesses.end(), compInArrvial);
+		return sortedProcesses;
+	}
 };

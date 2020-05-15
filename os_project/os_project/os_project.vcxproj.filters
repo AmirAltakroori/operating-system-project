@@ -32,5 +32,8 @@
     <ClInclude Include="MagicAlgorithm.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="MemoryManagor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

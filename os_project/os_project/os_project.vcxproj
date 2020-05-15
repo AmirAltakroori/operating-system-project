@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MagicAlgorithm.h" />
+    <ClInclude Include="MemoryManagor.h" />
     <ClInclude Include="Process.h" />
     <ClInclude Include="ProcessReader.h" />
     <ClInclude Include="Shedule.h" />

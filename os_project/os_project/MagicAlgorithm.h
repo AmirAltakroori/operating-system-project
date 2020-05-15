@@ -26,7 +26,6 @@ public:
 	*/
 	MagicAlgorithm (deque <Process> processes, int cs) {
 
-		sort (processes.begin(), processes.end(), compInArrvial);
 
 		this -> processes = processes;
 		this -> cs = cs;
@@ -352,18 +351,6 @@ private:
 		shedule.startExc = -3;
 		shedule.endExc = -3;
 		shedule.arrivalTime = -3;
-	}
-
-	//! Helper function
-	/*!
-	private returned function that helps sort functions
-	to store data in increasing order based on arrival time
-	@param a as an first process
-	@param b as an second process
-	@return bool: it returns true when the data saty correctly
-	*/
-	static bool compInArrvial (Process a, Process b) {
-		return a.arrivalTime < b.arrivalTime;
 	}
 
 };
